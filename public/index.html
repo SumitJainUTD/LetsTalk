@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Titlee</title>	
+	<link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+<body>	
+	<p>Welcome to Sumit</p>	
+	<button type="button" class="btn btn-primary" id="showPosts">Posts</button>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="javascripts/bootstrap.min.js"></script>
+	<script>
+	$(document).ready(function()
+	{
+		$('#showPosts').click(function()
+		{
+			window.location = '/Posts.html';
+			// alert("ff"); 
+			// $.ajax({
+			// 	type: "GET",
+			// 	url: "/posts",
+   //            // data: JSON.stringify(objJSON),
+   //            contentType: "application/json",
+   //            success: function(data) {    
+   //            	alert(data[0].title);                  
+   //                 // window.location = '/posts/'+data._id;
+   //             }                    
+   //         });     
+		}); 
+	});
+	</script>
+</body>
+</html>
