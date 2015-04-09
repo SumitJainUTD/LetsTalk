@@ -58,7 +58,7 @@
 
       <div class="container-fluid">
         <div class="row">
-         <div class="col-sm-3 col-md-2 sidebar">
+          <div class="col-sm-3 col-md-2 sidebar">
              <div id="sideBar" style="display:none">
                <ul class="nav nav-sidebar">
                 <li class="active"><a href="#"> <span class="sr-only">(current)</span></a></li>
@@ -85,7 +85,7 @@
               <span class="postFooter">Author : <%=author.username%></span>
               <span class="postFooter">asked : <%=date%></span>
               <span class="postFooter">course : <%=course%></span>
-              <span style="float:right">Replies : <%=comments%></span></div>
+              <span style="float:right">Replies : 10</span></div>
               </div>   
               </a>            
               </script>
@@ -108,22 +108,22 @@
 
     <script>
 
-    
-
-    // var loginStatus = getParameterByName('authentication');
-    // alert(loginStatus);
-    // var loginStatus = getParameterByName('login');
     $(document).ready(function()
       {    var posts;
 
           validateTopMenu();
+          var currAuthor = getCookie('userid');
+          console.log(currAuthor);
           $('#signout').click(function(){
             clickLogout();          
           }); 
+          var objJSON = {"author" : currAuthor}; 
+          console.log(objJSON);
           $.ajax({
-            type: "GET",
-            url: "/sumit/posts",
-              // data: JSON.stringify(objJSON),
+            type: "POST",
+            url: "/sumit/myposts",
+            // console.log(currAuthor);
+              data: JSON.stringify(objJSON),
               contentType: "application/json",
               success: function(data) {    
                 var postRow = _.template($('#_printPosts').html());
@@ -135,42 +135,9 @@
                     });
                 }                    
               });  
-
-                     
         }); 
-
     </script> 
 
-    <script>
-      // (function(){
-      //   var data = [{
-      //     title : "Sumit",
-      //     body  : "Jain" 
-      //   },{
-      //     title : "Sumit",
-      //     body  : "Jain" 
-      //   }];
-      //   console.log("s");
-      //   var postRow = _.template($('#_printPosts').html());
-      //   console.log(postRow);
-      //   _.each(data,function(element){
-      //       var projectRow = postRow(element);
-      //       console.log(projectRow);
-      //       $('.perThread').append(projectRow);
-      //   });
-      //   // var template =  Handlebars.compile($('#template').html());
-
-      //   // $('.perThread').append(template(data));
-      //   // console.log("SSS");
-      //   // var source   = $("#entry-template").html();
-      //   // console.log(source);
-      //   // var template = Handlebars.compile(source);  
-      //   // var context = {title: "My New Post", body: "This is my first post!"};
-      //   // console.log(context);
-      //   // var html    = template(context);
-      //   // console.log(html);
-      //   // $('.test').append(html);
-      // })();
-</script>
+   
 </body>
 </html>
