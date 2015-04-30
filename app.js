@@ -8,13 +8,18 @@ var session = require('express-session');
 var flash = require('connect-flash');
 var passport = require('passport');
 var mongoose = require('mongoose');
+
 var User = require('./models/User');
 // var expressHbs = require('express-handlebars');
+
+
 
 var basic = require('./routes/index');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var posts = require('./routes/posts');
+
+
 
 var app = express();
 
@@ -30,8 +35,8 @@ db.once('open', function(){
 });
 
 // view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 // app.set('views', path.join(__dirname, 'views'));
 // app.engine('handlebars', expressHbs({extname:'handlebars', defaultLayout:'index.handlebars'}));
 // app.set('view engine', 'handlebars');
@@ -98,6 +103,7 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+
 
 
 module.exports = app;

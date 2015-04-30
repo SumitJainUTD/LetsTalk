@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Blog Application</title>
+  <title>Let's Talk</title>
 
   <!-- Bootstrap -->
   <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
@@ -67,8 +67,7 @@
                 <li class="active"><a href="#"> <span class="sr-only">(current)</span></a></li>
                 <li ><a href="/new.html">Create New Post</a></li>
                 <li><a href="/Posts.html">All Posts</a></li>
-                <li><a href="/MyPosts.html">My Posts</a></li>                
-                <li><a href="#">Sign out</a></li>
+                <li><a href="/MyPosts.html">My Posts</a></li>     
                 </ul>  
             </div>                
           </div>
@@ -139,18 +138,16 @@
 
               <div class="panel-footer">
                 <span class="postFooter">Replied By : <%=author.username%></span>
-                <span class="postFooter">At : <%=date%></span>                      
-                <span style="float:right">
-                <button type="button" id="likeButton" class="btn btn-primary btn-xs"
-                data-commentid =<%=_id %> >Like</button>
-                <span style ="margin-left:5px;"class="badge">0</span>
-                </span>
+                <span class="postFooter">At : <%=date%></span>
               </div>
             </div> 
 
             </script>
           </div> 
-
+           <!-- <button type="button" id="likeButton" class="btn btn-primary btn-xs"
+                data-commentid =<%=_id %> >Like</button>
+                <span style ="margin-left:5px;"class="badge">0</span>
+                </span> -->
         </div> <!-- /col-md-8 -->
         
       </div> <!-- /row -->

@@ -1,6 +1,9 @@
 var express = require('express');
+var apigee = require('apigee-access');
+var zlib = require('zlib');
+var cache =apigee.getCache();
 var router = express.Router();
-
+  
 var Post = require('./../models/posts');
 var Comment = require('./../models/comments');
 var Like = require('./../models/likes');
@@ -20,35 +23,43 @@ router.get('/posts', function(req, res) {
       }
     });
   }else{
-    Post.find({}).sort({date:-1}).populate('author').exec(function(err, posts) {
-      if (err) {
-        console.log("db error in GET /posts: " + err);
-        res.send('500 Error');
-      } else {
-        res.json(posts);
-      }
-    });
-    // Post.find({}).sort({date:-1}).exec(function(err, posts) {
-    //   if (err) {
-    //     console.log("db error in GET /posts: " + err);
-    //     res.send('500 Error');
-    //   } else {
-
-    //     // User.findById(post.author).exec(function(err,user){
-    //     //   console.log("User Name " + user.username);
-    //     //   // post.push({username:user.username});
-    //     //   res.json({
-    //     //       Post: post,
-    //     //       User:user
-    //     //     });
-    // //   // console.log(post);
-    // //   res.json(post);
-    // // });
-    //     res.json(posts);
-    //   }
-    // });
+     cache.get('allposts', function(err, data) {
+          if(data){
+            console.log("geeting from cache");
+            // console.log(JSON.parse(data));
+            // cache.remove('allposts');
+            res.json( JSON.parse(data));
+          }else{
+            Post.find({}).sort({date:-1}).populate('author').exec(function(err, posts) {
+              if (err) {
+                console.log("Surpriseeeeeedb error in GET /posts: " + err);
+                res.send('500 Error');
+              } else {
+                console.log("Getting from DB");
+                console.log(posts);
+                cache.put('allposts', posts, 120);
+                // res.pipe(zlib.createGunzip()).pipe(posts);
+                res.json(posts);
+              }
+            });            
+          }
+      }); 
+        
   }  
+  //   Post.find({}).sort({date:-1}).populate('author').exec(function(err, posts) {
+  //     if (err) {
+  //       console.log("db error in GET /posts: " + err);
+  //       res.send('500 Error');
+  //     } else {
+  //       res.json(posts);
+  //     }
+  //   });   
+  // }  
+
+
 });
+
+
 
 /////////////////////////////My Posts/////////////////////////////////
 
@@ -72,7 +83,7 @@ router.post('/myposts', function(req, res) {
       if (err) {
         console.log("db error in GET /posts: " + err);
         res.send('500 Error');
-      } else {
+      }else{
         res.json(posts);
       }
     });
